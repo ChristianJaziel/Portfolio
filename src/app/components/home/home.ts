@@ -32,6 +32,7 @@ export class Home implements OnInit, AfterViewInit {
     this.customCursor();
     this.setFadeInAnimation();
     this.textTransform();
+    this.setupScrollPinning();
   }
 
   async textTransform() {
@@ -134,6 +135,36 @@ export class Home implements OnInit, AfterViewInit {
   }
 
   private setupScrollPinning(){
+    const container =  this.pinningDemo.nativeElement;
+    const pinned = container.querySelector('.pinned-content');
+    const slides = container.querySelectorAll('.pin-slide');
+    console.log(slides);
+    if(slides.length > 0){
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinned,
+          start: "top top",
+          end:()=> "+="+ (slides.length * 100) + "%",
+          pin: true,
+          scrub: 1,
+          snap: {
+            snapTo: 1/(slides.length-1),
+            duration: 0.5,
+            delay: 0.2
+          }
+        }
+      });
+
+      slides.forEach((slide:Element, index:number) => {
+        if(index > 0){
+          tl.from(slide,{
+            xPercent: 100,
+            duration: 1
+          }, index)
+        }
+      });
+
+    }
 
   }
 }
