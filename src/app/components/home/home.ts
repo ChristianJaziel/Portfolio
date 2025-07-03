@@ -15,6 +15,7 @@ gsap.registerPlugin(SplitText);
 })
 export class Home implements OnInit, AfterViewInit {
   @ViewChild('fadeInDemo', { static: true }) fadeInDemo!: ElementRef;
+  @ViewChild('pinningDemo', { static: true }) pinningDemo!: ElementRef;
 
   private animations: { [key: string]: gsap.core.Tween | gsap.core.Timeline } = {};
 
@@ -130,5 +131,9 @@ export class Home implements OnInit, AfterViewInit {
       }
     });
     ScrollTrigger.refresh();
+  }
+
+  private setupScrollPinning(){
+
   }
 }
